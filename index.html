@@ -1,1 +1,141 @@
-k
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="ItemStudio.farted.net — a clean Minecraft Java item command builder." />
+  <title>ItemStudio.farted.net</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="grain-overlay"></div>
+
+  <header class="topbar shell">
+    <a class="brand" href="#top"><span class="brand-glyph">IS</span><span>ItemStudio</span><small>.farted.net</small></a>
+    <div class="top-actions">
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme">☼</button>
+      <button class="soft-btn" id="resetBtn">Reset</button>
+    </div>
+  </header>
+
+  <main id="top" class="shell page">
+    <section class="intro reveal">
+      <div>
+        <span class="eyebrow">Minecraft Java item builder</span>
+        <h1>Build absurd items.<br><em>Without absurd commands.</em></h1>
+        <p>Pick what you want, tune every detail, then copy the command. ItemStudio swaps syntax automatically for the Minecraft version you select.</p>
+      </div>
+      <div class="version-card">
+        <label for="versionSelect">Minecraft version</label>
+        <select id="versionSelect"></select>
+        <div class="syntax-pill" id="syntaxPill">Modern components</div>
+        <p id="versionNote"></p>
+      </div>
+    </section>
+
+    <section class="studio-grid">
+      <div class="builder-column">
+        <section class="panel reveal" data-step="base">
+          <div class="panel-head"><span class="step-no">01</span><span><b>Item or block</b><small>Choose the base Minecraft item.</small></span></div>
+          <div class="panel-body">
+            <div class="choice-row" id="typeChoice"><button class="choice active" data-type="item">Item</button><button class="choice" data-type="block">Block</button></div>
+            <div class="search-picker">
+              <div class="float-field"><input id="itemSearch" autocomplete="off" placeholder=" "><label>Search item / block</label></div>
+              <div class="picker-list" id="itemList"></div>
+            </div>
+            <div class="selected-card" id="selectedItemCard">Nothing selected yet.</div>
+          </div>
+        </section>
+
+        <section class="panel reveal" data-step="name">
+          <div class="panel-head"><span class="step-no">02</span><span><b>Name & lore</b><small>Make the item actually yours.</small></span></div>
+          <div class="panel-body">
+            <div class="field-grid two">
+              <div class="float-field animated-input"><input id="itemName" placeholder=" "><label>Display name</label></div>
+              <label class="select-field"><span>Name color</span><select id="nameColor"></select></label>
+            </div>
+            <div class="toggle-row"><label><input type="checkbox" id="nameBold"><span>Bold</span></label><label><input type="checkbox" id="nameItalic"><span>Italic</span></label><label><input type="checkbox" id="hideTooltip"><span>Hide tooltip</span></label><label><input type="checkbox" id="unbreakable"><span>Unbreakable</span></label></div>
+            <div class="subsection-head"><span>Lore lines</span><button class="mini-btn" data-add="lore">+ Add line</button></div>
+            <div class="stack" id="loreRows"></div>
+          </div>
+        </section>
+
+        <section class="panel reveal" data-step="enchants">
+          <div class="panel-head"><span class="step-no">03</span><span><b>Enchantments</b><small>Compatible or completely cursed. Your choice.</small></span></div>
+          <div class="panel-body">
+            <div class="subsection-head"><span>Enchantments</span><button class="mini-btn" data-add="enchant">+ Add enchant</button></div>
+            <p class="hint">ItemStudio does not block incompatible enchants. If Minecraft accepts the component/NBT, it is generated.</p>
+            <div class="stack" id="enchantRows"></div>
+            <label class="switch-line"><input type="checkbox" id="hideEnchants"><span class="switch"></span><span>Hide enchantment tooltip</span></label>
+          </div>
+        </section>
+
+        <section class="panel reveal" data-step="attributes">
+          <div class="panel-head"><span class="step-no">04</span><span><b>Attributes</b><small>Damage, speed, armor, reach and more.</small></span></div>
+          <div class="panel-body">
+            <div class="subsection-head"><span>Attribute modifiers</span><button class="mini-btn" data-add="attribute">+ Add attribute</button></div>
+            <p class="hint">Uses the correct attribute ID family for the selected version instead of blindly adding <code>generic.</code>.</p>
+            <div class="stack" id="attributeRows"></div>
+          </div>
+        </section>
+
+        <section class="panel reveal" data-step="effects">
+          <div class="panel-head"><span class="step-no">05</span><span><b>Effects</b><small>Apply potion effects while held or equipped.</small></span></div>
+          <div class="panel-body">
+            <div class="subsection-head"><span>Conditional effects</span><button class="mini-btn" data-add="effect">+ Add effect</button></div>
+            <p class="hint">Effects generate extra repeating-command-block commands for hand and armor slots.</p>
+            <div class="stack" id="effectRows"></div>
+          </div>
+        </section>
+
+        <section class="panel reveal" data-step="advanced">
+          <div class="panel-head"><span class="step-no">06</span><span><b>Advanced</b><small>Count, model data, damage and raw components.</small></span></div>
+          <div class="panel-body">
+            <div class="field-grid three">
+              <div class="float-field"><input id="count" type="number" min="1" max="99" value="1" placeholder=" "><label>Count</label></div>
+              <div class="float-field"><input id="damage" type="number" min="0" value="0" placeholder=" "><label>Damage</label></div>
+              <div class="float-field"><input id="customModel" type="number" min="0" placeholder=" "><label>Custom model data</label></div>
+            </div>
+            <div class="float-field textarea-field"><textarea id="rawExtra" rows="4" placeholder=" "></textarea><label id="rawExtraLabel">Extra component entries</label></div>
+            <p class="hint" id="rawHint">Advanced raw data is inserted exactly as typed.</p>
+          </div>
+        </section>
+      </div>
+
+      <aside class="preview-column">
+        <div class="sticky-preview reveal">
+          <div class="preview-label">Live preview</div>
+          <div class="mc-card">
+            <div class="mc-icon" id="mcIcon">◆</div>
+            <div class="mc-name" id="previewName">Choose an item</div>
+            <div class="mc-enchants" id="previewEnchants"></div>
+            <div class="mc-lore" id="previewLore"></div>
+            <div class="mc-attrs" id="previewAttrs"></div>
+          </div>
+          <div class="mini-summary" id="miniSummary"></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="output-section reveal">
+      <div class="output-head">
+        <div><span class="eyebrow">Generated output</span><h2>Ready for Minecraft.</h2></div>
+        <span class="status-dot"><i></i><span id="validationLabel">Syntax profile loaded</span></span>
+      </div>
+      <div class="command-tabs"><button class="active" data-output="give">Give command</button><button data-output="effects">Effect commands <span id="effectCountBadge">0</span></button></div>
+      <div class="command-box"><pre id="commandOutput">Choose an item first.</pre><button class="copy-btn" id="copyBtn">Copy</button></div>
+      <div class="command-help" id="commandHelp"></div>
+      <div class="warning-box" id="warningBox" hidden></div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast">Copied to clipboard</div>
+  <footer class="shell footer">ItemStudio.farted.net <span class="accent-dot"></span> Java Edition command builder</footer>
+  <script src="app-1.js"></script>
+  <script src="app-2.js"></script>
+  <script src="app-3.js"></script>
+</body>
+</html>
