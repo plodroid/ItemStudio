@@ -45,11 +45,22 @@
     });
   }
 
+  function setCommandHelp() {
+    const help = q('#commandHelp');
+    if (!help) return;
+    if (state.output === 'give') {
+      help.innerHTML = '<b>Command block:</b> paste this exactly as shown. <b>Chat:</b> add a <code>/</code> before <code>minecraft:give</code>.';
+    } else {
+      help.innerHTML = 'Put each line in its own <b>Repeating / Always Active</b> command block. ItemStudio uses vanilla command namespaces so plugins do not replace the command.';
+    }
+  }
+
   const baseRefresh = refresh;
   refresh = function () {
     if (state.item) {
       baseRefresh();
       updateTabCounts();
+      setCommandHelp();
       return;
     }
 
