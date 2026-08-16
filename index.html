@@ -8,11 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="ui.css?v=20260816-1" />
 </head>
 <body>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
   <div class="grain-overlay"></div>
 
   <header class="topbar shell">
@@ -26,32 +24,30 @@
   <main id="top" class="shell page">
     <section class="hero reveal">
       <h1>Create a Minecraft item.</h1>
-      <p>Choose an item, add only the things you want, then copy the command.</p>
+      <p>Pick an item, customize what you want, then copy the finished command.</p>
     </section>
 
     <section class="workspace reveal">
       <div class="setup-row">
         <div class="version-control">
           <label for="versionSelect">Minecraft version</label>
-          <select id="versionSelect"></select>
-          <div class="version-meta"><span id="syntaxPill">Modern components</span><span id="versionNote">Command format is selected automatically.</span></div>
+          <select id="versionSelect" aria-label="Minecraft version"></select>
+          <div class="version-meta"><span id="syntaxPill">Command format</span><span id="versionNote">Handled automatically.</span></div>
         </div>
 
         <div class="item-control">
           <div class="item-control-top">
-            <label>Item or block</label>
+            <label for="itemSearch">Choose item</label>
             <div class="choice-row" id="typeChoice">
               <button class="choice active" data-type="item">Item</button>
               <button class="choice" data-type="block">Block</button>
             </div>
           </div>
           <div class="search-picker">
-            <div class="float-field">
-              <input id="itemSearch" autocomplete="off" placeholder="Search by name or ID" />
-            </div>
+            <input id="itemSearch" autocomplete="off" placeholder="Search for diamond pickaxe, stone, stick..." />
             <div class="picker-list" id="itemList"></div>
           </div>
-          <div class="selected-card" id="selectedItemCard">No item selected.</div>
+          <div class="selected-card" id="selectedItemCard" aria-live="polite">No item selected.</div>
         </div>
       </div>
 
@@ -67,11 +63,11 @@
         <div class="builder-column">
           <section class="panel" data-editor-panel="basic">
             <div class="panel-head">
-              <div><b>Name & lore</b><small>Optional. Leave anything blank to keep the normal item value.</small></div>
+              <div><b>Name & lore</b><small>Everything here is optional. Leave it blank to keep the normal item.</small></div>
             </div>
             <div class="panel-body">
               <div class="field-grid two">
-                <div class="field"><label for="itemName">Display name</label><input id="itemName" placeholder="e.g. Plankton Pickaxe" /></div>
+                <div class="field"><label for="itemName">Display name</label><input id="itemName" placeholder="Plankton Pickaxe" /></div>
                 <label class="field"><span>Name color</span><select id="nameColor"></select></label>
               </div>
               <div class="toggle-row">
@@ -80,17 +76,17 @@
                 <label><input type="checkbox" id="unbreakable"><span>Unbreakable</span></label>
                 <label><input type="checkbox" id="hideTooltip"><span>Hide tooltip</span></label>
               </div>
-              <div class="subsection-head"><span>Lore</span><button class="mini-btn" data-add="lore">Add line</button></div>
+              <div class="subsection-head"><span>Lore</span><button class="mini-btn" data-add="lore">+ Add line</button></div>
               <div class="stack" id="loreRows"></div>
             </div>
           </section>
 
           <section class="panel" data-editor-panel="enchant" hidden>
             <div class="panel-head">
-              <div><b>Enchantments</b><small>Add any enchantment and choose its level.</small></div>
+              <div><b>Enchantments</b><small>Add an enchantment, then choose the level.</small></div>
             </div>
             <div class="panel-body">
-              <button class="primary-add" data-add="enchant">Add enchantment</button>
+              <button class="primary-add" data-add="enchant">+ Add enchantment</button>
               <div class="stack" id="enchantRows"></div>
               <label class="switch-line"><input type="checkbox" id="hideEnchants"><span class="switch"></span><span>Hide enchantment text</span></label>
             </div>
@@ -98,29 +94,29 @@
 
           <section class="panel" data-editor-panel="attribute" hidden>
             <div class="panel-head">
-              <div><b>Attributes</b><small>Change stats like damage, speed or armor while the item is held or worn.</small></div>
+              <div><b>Attributes</b><small>Change damage, speed, armor and other stats while the item is held or worn.</small></div>
             </div>
             <div class="panel-body">
-              <div class="beginner-note">Pick a stat, enter the amount, then choose when it should apply.</div>
-              <button class="primary-add" data-add="attribute">Add attribute</button>
+              <div class="beginner-note">Choose a stat → enter the amount → choose when it applies.</div>
+              <button class="primary-add" data-add="attribute">+ Add attribute</button>
               <div class="stack" id="attributeRows"></div>
             </div>
           </section>
 
           <section class="panel" data-editor-panel="effect" hidden>
             <div class="panel-head">
-              <div><b>Effects</b><small>Give potion effects while the item is held or equipped.</small></div>
+              <div><b>Effects</b><small>Give potion effects while this item is held or equipped.</small></div>
             </div>
             <div class="panel-body">
-              <div class="beginner-note">Effects create extra repeating command-block commands. ItemStudio will show them in the output.</div>
-              <button class="primary-add" data-add="effect">Add effect</button>
+              <div class="beginner-note">These need extra repeating command blocks. ItemStudio creates those commands for you.</div>
+              <button class="primary-add" data-add="effect">+ Add effect</button>
               <div class="stack" id="effectRows"></div>
             </div>
           </section>
 
           <section class="panel" data-editor-panel="advanced" hidden>
             <div class="panel-head">
-              <div><b>Advanced</b><small>You can ignore this section unless you know you need it.</small></div>
+              <div><b>Advanced</b><small>Most people can leave this section alone.</small></div>
             </div>
             <div class="panel-body">
               <div class="field-grid three">
@@ -129,7 +125,7 @@
                 <div class="field"><label for="customModel">Custom model data</label><input id="customModel" type="number" min="0" placeholder="Optional" /></div>
               </div>
               <div class="field"><label id="rawExtraLabel" for="rawExtra">Extra component entries</label><textarea id="rawExtra" rows="4" placeholder="Optional raw data"></textarea></div>
-              <p class="hint" id="rawHint">Advanced raw data is inserted exactly as typed.</p>
+              <p class="hint" id="rawHint">Optional — beginners can leave this empty.</p>
             </div>
           </section>
         </div>
@@ -151,7 +147,7 @@
 
       <section class="output-section">
         <div class="output-head">
-          <div><h2>Command</h2><p>Copy this when you're done.</p></div>
+          <div><h2>Command</h2><p>Copy this when you're finished.</p></div>
           <span class="status-dot"><i></i><span id="validationLabel">Waiting for an item</span></span>
         </div>
         <div class="command-tabs">
@@ -159,7 +155,7 @@
           <button data-output="effects">Effect commands <span id="effectCountBadge">0</span></button>
         </div>
         <div class="command-box"><pre id="commandOutput">Choose an item or block first.</pre><button class="copy-btn" id="copyBtn">Copy</button></div>
-        <div class="command-help" id="commandHelp">Start by choosing an item or block above.</div>
+        <div class="command-help" id="commandHelp">Start with the item search at the top.</div>
         <div class="warning-box" id="warningBox" hidden></div>
       </section>
     </section>
@@ -171,6 +167,6 @@
   <script src="app-1.js"></script>
   <script src="app-2.js"></script>
   <script src="app-3.js"></script>
-  <script src="app-fix.js"></script>
+  <script src="ui.js?v=20260816-1"></script>
 </body>
 </html>
