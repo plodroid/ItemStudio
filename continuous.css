@@ -1,0 +1,100 @@
+/* Continuous ItemStudio layout: one workspace, not a dashboard of cards. */
+
+.studio-grid {
+  display: block !important;
+}
+
+.builder-column {
+  display: block !important;
+}
+
+.panel,
+.version-card,
+.selected-card,
+.sticky-preview,
+.output-section {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.panel {
+  margin: 0 !important;
+  padding: 0 !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+.panel:first-child {
+  border-top: 0 !important;
+}
+
+.panel-head {
+  cursor: default !important;
+  padding: 34px 0 18px !important;
+  background: transparent !important;
+}
+
+.panel-head:hover {
+  background: transparent !important;
+}
+
+.panel-body {
+  display: block !important;
+  max-height: none !important;
+  opacity: 1 !important;
+  overflow: visible !important;
+  padding: 0 0 38px !important;
+}
+
+.version-card {
+  padding: 0 !important;
+  align-self: end;
+}
+
+.selected-card {
+  padding: 14px 0 !important;
+  margin-top: 14px !important;
+  border-top: 1px solid var(--border) !important;
+}
+
+.preview-column {
+  margin-top: 12px;
+  padding: 38px 0;
+  border-top: 1px solid var(--border);
+}
+
+.sticky-preview {
+  position: static !important;
+  padding: 0 !important;
+}
+
+/* The Minecraft tooltip itself can still look like Minecraft; it is a preview, not UI chrome. */
+.mc-card {
+  max-width: 560px;
+  border-radius: 3px !important;
+  box-shadow: 0 14px 40px rgba(0,0,0,.22) !important;
+}
+
+.mini-summary {
+  border: 0 !important;
+  background: transparent !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.output-section {
+  border-top: 1px solid var(--border) !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.row-editor {
+  box-shadow: none !important;
+}
+
+@media (min-width: 900px) {
+  .intro {
+    grid-template-columns: minmax(0,1.35fr) minmax(260px,.65fr) !important;
+  }
+}
