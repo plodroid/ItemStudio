@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="ItemStudio command syntax checker for Minecraft Java Edition." />
+  <title>Command Checker — ItemStudio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="ui.css?v=20260818-2" />
+  <link rel="stylesheet" href="checker.css?v=20260818-1" />
+</head>
+<body>
+  <div class="grain-overlay"></div>
+
+  <header class="topbar shell">
+    <a class="brand" href="index.html">ItemStudio<span>.farted.net</span></a>
+    <div class="top-actions">
+      <button class="soft-btn" onclick="location.href='index.html'">Item Builder</button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">☼</button>
+    </div>
+  </header>
+
+  <main class="shell checker-page">
+    <section class="checker-hero reveal">
+      <span class="checker-kicker">Command Checker</span>
+      <h1>Check a command before Minecraft does.</h1>
+      <p>Pick the Java version, paste one or more commands, and ItemStudio checks brackets, quotes, command availability, and major version-specific syntax changes.</p>
+    </section>
+
+    <section class="checker-shell reveal">
+      <div class="checker-toolbar">
+        <label class="checker-version">
+          <span>Minecraft version</span>
+          <select id="checkerVersion"></select>
+        </label>
+        <div class="checker-actions">
+          <button class="soft-btn" id="exampleBtn">Example</button>
+          <button class="primary-check" id="checkBtn">Check syntax</button>
+        </div>
+      </div>
+
+      <label class="command-editor-wrap" for="commandInput">
+        <span>Command</span>
+        <textarea id="commandInput" spellcheck="false" autocomplete="off" placeholder="/give @p minecraft:diamond_sword 1"></textarea>
+      </label>
+
+      <div class="checker-summary" id="checkerSummary">
+        <span class="summary-light idle"></span>
+        <span>Paste a command to start.</span>
+      </div>
+
+      <div class="checker-results" id="checkerResults"></div>
+
+      <div class="checker-footnote">
+        This is a static vanilla Java syntax linter, not a Minecraft server. It catches known syntax/version mistakes and structural errors; unknown plugin commands are shown as unverified instead of being falsely marked invalid.
+      </div>
+    </section>
+  </main>
+
+  <script src="checker.js?v=20260818-1"></script>
+</body>
+</html>
